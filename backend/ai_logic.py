@@ -5,14 +5,19 @@ import json
 # Try importing google.generativeai, but safely fallback to heuristics if not available/configured
 try:
     import google.generativeai as genai
-    API_KEY = os.getenv("GEMINI_API_KEY")
-    if API_KEY:
-        genai.configure(api_key=API_KEY)
-        has_ai = True
-    else:
-        has_ai = False
-except ImportError:
-    has_ai = False
+    has_ai_lib = True
+except Exception as e:
+    has_ai_lib = False
+
+def get_genai_model():
+    """Helper to get a configured model if available, else returns None"""
+    if not has_ai_lib:
+        return None
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        return None
+    genai.configure(api_key=api_key)
+    return genai.GenerativeModel('gemini-2.5-flash')
 
 def extract_inventory_action_heuristics(text: str):
     """Fallback logic if no AI is present to parse natural language"""
@@ -50,9 +55,9 @@ def analyze_natural_language_inventory(text: str):
     Takes natural language like: 'Added 200 units of Fashion Accessories today'
     Returns dict: {'action': 'add', 'qty': 200, 'item_name': 'Fashion Accessories'}
     """
-    if has_ai:
+    model = get_genai_model()
+    if model:
         try:
-            model = genai.GenerativeModel('gemini-2.5-flash')
             prompt = f"""
             Extract the inventory update from this text.
             Text: "{text}"
@@ -76,7 +81,10 @@ def ask_business_query(query: str, data_context: str):
     Answers business questions based on the JSON payload context of their dashboard.
     """
     try:
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        model = get_genai_model()
+        if not model:
+            raise Exception("AI is not configured. Please set the GEMINI_API_KEY environment variable.")
+            
         prompt = f"""
         You are a smart Data Analyst Assistant for an MSME business using the "Manager AI" platform.
         You must answer the user's question concisely and accurately, referencing the data below.

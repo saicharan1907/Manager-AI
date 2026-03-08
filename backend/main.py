@@ -408,10 +408,13 @@ async def upload_file(
     return RedirectResponse(url="/dashboard", status_code=status.HTTP_302_FOUND)
 
 @app.get("/api/dashboard/stats")
-async def get_dashboard_stats(days: int = 30, db: Session = Depends(get_db), user_id: str = Depends(require_user)):
+async def get_dashboard_stats(days: int = 7, db: Session = Depends(get_db), user_id: str = Depends(require_user)):
     uid = int(user_id)
     from datetime import datetime, timedelta
-    cutoff = datetime.utcnow() - timedelta(days=days)
+    
+    most_recent_sale = db.query(func.max(models.Sale.sale_date)).filter(models.Sale.owner_id == uid).scalar()
+    base_date = most_recent_sale if most_recent_sale else datetime.utcnow()
+    cutoff = base_date - timedelta(days=days)
     
     # Calculate Total Revenue
     total_rev = db.query(func.sum(models.Sale.total_price)).filter(
@@ -445,10 +448,13 @@ async def get_dashboard_stats(days: int = 30, db: Session = Depends(get_db), use
     })
 
 @app.get("/api/dashboard/chart")
-async def get_dashboard_chart(days: int = 30, db: Session = Depends(get_db), user_id: str = Depends(require_user)):
+async def get_dashboard_chart(days: int = 7, db: Session = Depends(get_db), user_id: str = Depends(require_user)):
     uid = int(user_id)
     from datetime import datetime, timedelta
-    cutoff = datetime.utcnow() - timedelta(days=days)
+    
+    most_recent_sale = db.query(func.max(models.Sale.sale_date)).filter(models.Sale.owner_id == uid).scalar()
+    base_date = most_recent_sale if most_recent_sale else datetime.utcnow()
+    cutoff = base_date - timedelta(days=days)
     
     # Group sales arbitrarily by date
     sales_by_date = db.query(
@@ -464,7 +470,7 @@ async def get_dashboard_chart(days: int = 30, db: Session = Depends(get_db), use
     
     # Send some fallback fake data if totally empty
     if not labels:
-        base = datetime.utcnow()
+        base = base_date
         labels = [(base - timedelta(days=x)).strftime("%Y-%m-%d") for x in range(days)]
         labels.reverse()
         data = [0] * days
