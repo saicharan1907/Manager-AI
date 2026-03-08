@@ -5,8 +5,9 @@ import os
 import bcrypt
 import secrets
 
-# Vercel needs a safe boot fallback if the user forgets to map the environment settings
-SECRET_KEY = os.getenv("SECRET_KEY", secrets.token_hex(32))
+# Vercel Serverless needs a single static fallback signature. 
+# Dynamic secrets (like token_hex) will crash validation when Vercel spins up separate lambda instances!
+SECRET_KEY = os.getenv("SECRET_KEY", "manager-ai-safe-fallback-signature-123")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 30  # 30 days
 
