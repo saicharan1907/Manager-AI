@@ -376,7 +376,8 @@ async def upload_file(
     db: Session = Depends(get_db),
     user_id: str = Depends(require_user)
 ):
-    upload_dir = os.path.join("data", "uploads")
+    # Target Vercel's writeable ephemeral directory
+    upload_dir = "/tmp/uploads"
     os.makedirs(upload_dir, exist_ok=True)
     
     file_path = os.path.join(upload_dir, file.filename)
