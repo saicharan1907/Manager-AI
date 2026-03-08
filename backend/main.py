@@ -31,8 +31,9 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Manager AI Backend")
 
-# Setup template renderer to point to "frontend" folder
-templates = Jinja2Templates(directory="frontend")
+# Properly map serverless architecture paths natively to avoid Vercel 500 folder crash
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "frontend"))
 
 class ChatRequest(BaseModel):
     query: str

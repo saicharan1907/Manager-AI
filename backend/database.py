@@ -4,7 +4,8 @@ from sqlalchemy.orm import sessionmaker
 
 import os
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./manager_ai.db")
+# Securely default to Vercel's ephemeral /tmp folder if they forget their external Postgres URL
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:////tmp/manager_ai.db")
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 

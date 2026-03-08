@@ -3,10 +3,10 @@ from typing import Optional
 from jose import JWTError, jwt
 import os
 import bcrypt
+import secrets
 
-SECRET_KEY = os.getenv("SECRET_KEY")
-if not SECRET_KEY:
-    raise ValueError("No SECRET_KEY set for Flask application")
+# Vercel needs a safe boot fallback if the user forgets to map the environment settings
+SECRET_KEY = os.getenv("SECRET_KEY", secrets.token_hex(32))
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 30  # 30 days
 
