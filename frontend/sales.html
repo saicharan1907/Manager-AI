@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Manager AI - Sales Insights</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display min-h-screen">
+    <!-- Top Navigation Bar -->
+    <header
+        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#dbe0e6] dark:border-gray-800 bg-white dark:bg-[#111418] px-10 py-3 sticky top-0 z-50">
+        <div class="flex items-center gap-8">
+            <div onclick="window.location.href='/'"
+                class="flex items-center gap-4 text-[#111418] dark:text-white cursor-pointer hover:opacity-80 transition-opacity">
+                <div class="size-6 text-primary">
+                    <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"
+                            fill="currentColor"></path>
+                    </svg>
+                </div>
+                <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Manager AI</h2>
+            </div>
+            <label class="flex flex-col min-w-40 !h-10 max-w-64">
+                <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                    <div
+                        class="text-[#617289] flex border-none bg-background-light dark:bg-gray-800 items-center justify-center pl-4 rounded-l-lg">
+                        <span class="material-symbols-outlined">search</span>
+                    </div>
+                    <input
+                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border-none bg-background-light dark:bg-gray-800 focus:border-none h-full placeholder:text-[#617289] px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal"
+                        placeholder="Search data points..." value="" />
+                </div>
+            </label>
+        </div>
+        <div class="flex flex-1 justify-end gap-8 items-center">
+            <nav class="flex items-center gap-6">
+                <a class="text-[#111418] dark:text-gray-300 text-sm font-medium leading-normal hover:text-primary transition-colors"
+                    href="/dashboard">Dashboard</a>
+                <a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary pb-1"
+                    href="/sales">Sales Insights</a>
+                <a class="text-[#111418] dark:text-gray-300 text-sm font-medium leading-normal hover:text-primary transition-colors"
+                    href="/inventory">Inventory</a>
+                <a class="text-[#111418] dark:text-gray-300 text-sm font-medium leading-normal hover:text-primary transition-colors"
+                    href="/reports">Reports</a>
+            </nav>
+            <button onclick="window.open('/api/sales/invoice/pdf', '_blank')"
+                class="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-colors">
+                <span class="truncate">Generate PDF Invoice</span>
+            </button>
+            <div class="flex items-center gap-4 relative">
+                <!-- Notifications Dropdown System -->
+                <div class="relative">
+                    <button id="notification-btn"
+                        onclick="document.getElementById('notification-dropdown').classList.toggle('hidden')"
+                        class="p-2 rounded-lg bg-[#f0f2f4] dark:bg-white/5 text-[#111418] dark:text-white hover:bg-[#e2e8f0] transition-colors relative mt-1">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span id="notification-badge"
+                            class="hidden absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-background-dark"></span>
+                    </button>
+                    <div id="notification-dropdown"
+                        class="hidden absolute right-0 mt-2 w-80 bg-white dark:bg-[#1c2632] border border-[#dbe0e6] dark:border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden">
+                        <div
+                            class="p-4 border-b border-[#dbe0e6] dark:border-white/10 flex justify-between items-center bg-gray-50 dark:bg-white/5">
+                            <h3 class="font-bold text-sm text-[#111418] dark:text-white">Active Alerts</h3>
+                            <span id="notification-count"
+                                class="text-[10px] bg-primary text-white px-2 py-0.5 rounded-full font-bold shadow-sm">0</span>
+                        </div>
+                        <div id="notification-list"
+                            class="max-h-80 overflow-y-auto divide-y divide-[#dbe0e6] dark:divide-white/10 flex flex-col">
+                            <div class="p-4 text-center text-xs text-gray-500">Loading system data...</div>
+                        </div>
+                    </div>
+                </div>
+                <div onclick="window.location.href='/profile'"
+                    class="flex items-center gap-3 pl-4 border-l border-[#dbe0e6] dark:border-white/10 cursor-pointer hover:opacity-80 transition-opacity">
+                    <div class="text-right hidden sm:block">
+                        <p class="user-profile-name text-xs font-bold text-[#111418] dark:text-white leading-none">
+                            Loading...</p>
+                        <p
+                            class="user-profile-role text-[10px] text-[#617289] dark:text-gray-400 mt-1 uppercase tracking-wider">
+                            Loading</p>
+                    </div>
+                    <div
+                        class="user-profile-avatar w-10 h-10 rounded-full flex items-center justify-center bg-[#facab0] text-primary font-bold text-lg shadow-sm border border-[#f0c2a8]">
+                        ?
+                    </div>
+                </div>
+            </div>
+    </header>
+    <main class="max-w-[1280px] mx-auto px-4 md:px-10 py-8 mb-24 md:mb-0">
+        <!-- Page Heading -->
+        <div class="flex flex-wrap justify-between items-end gap-3 mb-8">
+            <div class="flex min-w-72 flex-col gap-2">
+                <p class="text-[#111418] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Sales
+                    Insights &amp; Data Upload</p>
+                <p class="text-[#617289] dark:text-gray-400 text-base font-normal leading-normal">Upload your messy
+                    sales data. Our AI will handle mapping and visualization in seconds.</p>
+            </div>
+        </div>
+        <!-- Upload Section -->
+        <section class="mb-10">
+            <div
+                class="flex flex-col bg-white dark:bg-[#111418] rounded-xl shadow-sm border border-[#dbe0e6] dark:border-gray-800 overflow-hidden">
+                <div class="p-8">
+                    <form action="/api/upload" method="POST" enctype="multipart/form-data"
+                        class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#dbe0e6] dark:border-gray-700 bg-background-light/50 dark:bg-gray-800/30 px-6 py-14 hover:border-primary transition-colors cursor-pointer group">
+                        <div
+                            class="size-16 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-4xl">cloud_upload</span>
+                        </div>
+                        <div class="flex max-w-[480px] flex-col items-center gap-2">
+                            <p
+                                class="text-[#111418] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em] text-center">
+                                Drag &amp; Drop Sales File</p>
+                            <p class="text-[#617289] dark:text-gray-400 text-sm font-normal leading-normal text-center">
+                                Support for CSV, XLSX, and XLS. AI will automatically fix column naming inconsistencies,
+                                handle date formats, and clean duplicate entries.
+                            </p>
+                        </div>
+                        <label
+                            class="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-6 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-colors shadow-lg shadow-primary/20">
+                            <span class="truncate">Browse Files</span>
+                            <input type="file" name="file" class="hidden" onchange="this.form.submit()"
+                                accept=".csv, .xlsx, .xls" required />
+                        </label>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- Processed Sales Data -->
+        <section class="mb-12">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-[#111418] dark:text-white text-[22px] font-bold leading-tight">Recent Sales Transactions
+                </h2>
+                <div
+                    class="flex items-center gap-2 bg-green-50 dark:bg-green-900/20 px-3 py-1 rounded-full text-green-600 dark:text-green-400 text-xs font-bold uppercase tracking-wider">
+                    <span class="material-symbols-outlined text-sm">verified</span> Verified Source
+                </div>
+            </div>
+            <div
+                class="bg-white dark:bg-[#111418] rounded-xl shadow-sm border border-[#dbe0e6] dark:border-gray-800 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-background-light dark:bg-gray-800/50">
+                                <th
+                                    class="px-6 py-4 text-[#111418] dark:text-white text-sm font-semibold border-b border-[#dbe0e6] dark:border-gray-700">
+                                    Product Sold</th>
+                                <th
+                                    class="px-6 py-4 text-[#111418] dark:text-white text-sm font-semibold border-b border-[#dbe0e6] dark:border-gray-700">
+                                    Date</th>
+                                <th
+                                    class="px-6 py-4 text-[#111418] dark:text-white text-sm font-semibold border-b border-[#dbe0e6] dark:border-gray-700">
+                                    Qty</th>
+                                <th
+                                    class="px-6 py-4 text-[#111418] dark:text-white text-sm font-semibold border-b border-[#dbe0e6] dark:border-gray-700">
+                                    Unit Price</th>
+                                <th
+                                    class="px-6 py-4 text-[#111418] dark:text-white text-sm font-semibold border-b border-[#dbe0e6] dark:border-gray-700">
+                                    Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sales-table-body" class="divide-y divide-[#dbe0e6] dark:divide-gray-800">
+                            <!-- JS loaded -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Action Buttons -->
+            <div class="flex flex-col border-t border-[#dbe0e6] dark:border-gray-800 pt-10 pb-6">
+                <h3 class="text-[#111418] dark:text-white text-lg font-bold mb-6">Confirm and Process Uploaded Sales
+                    Data
+                </h3>
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="resetAllData()" id="reset-sales-btn"
+                        class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-[#f0f2f4] dark:bg-gray-800 text-[#111418] dark:text-white text-md font-bold leading-normal hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        <span class="truncate">Reset Mapping</span>
+                    </button>
+                    <button onclick="window.location.href='/dashboard'"
+                        class="flex min-w-[180px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-md font-black leading-normal tracking-[0.015em] hover:bg-blue-700 transition-all transform hover:scale-[1.02] shadow-xl shadow-primary/30">
+                        <span class="truncate">Apply &amp; Refresh Charts</span>
+                    </button>
+                </div>
+            </div>
+    </main>
+    <!-- Footer Meta -->
+    <footer class="bg-white dark:bg-[#111418] border-t border-[#dbe0e6] dark:border-gray-800 py-10">
+        <div class="max-w-[1280px] mx-auto px-10 flex justify-between items-center text-[#617289] text-sm">
+            <p>© 2024 Manager AI. All mapping is secure and encrypted.</p>
+            <div class="flex gap-6">
+                <a class="hover:text-primary" href="#">Documentation</a>
+                <a class="hover:text-primary" href="#">API Settings</a>
+                <a class="hover:text-primary" href="#">Help Center</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Fetch Profile
+        fetch('/api/user/profile').then(res => res.json()).then(data => {
+            if (data.name) {
+                document.querySelectorAll('.user-profile-name').forEach(el => el.textContent = data.name);
+                document.querySelectorAll('.user-profile-role').forEach(el => el.textContent = data.role);
+                document.querySelectorAll('.user-profile-avatar').forEach(el => {
+                    el.textContent = data.initial;
+                    el.style.backgroundImage = 'none';
+                });
+            }
+        }).catch(console.error);
+
+        const tableBody = document.getElementById('sales-table-body');
+        try {
+            const res = await fetch('/api/sales/list');
+            const data = await res.json();
+
+            tableBody.innerHTML = '';
+            if (data.sales.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-8 text-center text-sm text-gray-500">No recent sales found. Upload a file above!</td></tr>';
+                return;
+            }
+
+            data.sales.forEach(s => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-background-light/30 dark:hover:bg-white/5 transition-colors";
+                tr.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-gray-400">payments</span>
+                                <span class="font-medium text-[#111418] dark:text-white">${s.product_name}</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-[#617289] dark:text-gray-400 font-medium">${s.date}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-2 py-1 rounded bg-gray-100 font-bold">${s.quantity}</span></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-[#617289]">$${s.unit_price.toFixed(2)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#136dec]">$${s.total_price.toFixed(2)}</td>
+                    `;
+                tableBody.appendChild(tr);
+            });
+        } catch (e) {
+            console.error("Failed to load sales:", e);
+            tableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-sm text-red-500">Error loading sales data.</td></tr>';
+        }
+    });
+
+    async function resetAllData() {
+        if (confirm("Are you sure you want to completely erase your sales records and inventory? This action cannot be undone.")) {
+            const btn = document.getElementById('reset-sales-btn');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerText = 'Resetting...';
+            }
+            try {
+                const res = await fetch('/api/inventory/reset', { method: 'POST' });
+                if (res.ok) {
+                    window.location.reload();
+                } else {
+                    alert("Failed to clear mapping cache from server.");
+                    if (btn) btn.innerText = 'Reset Mapping';
+                }
+            } catch (e) {
+                alert("Network error.");
+                if (btn) btn.innerText = 'Reset Mapping';
+            }
+        }
+    }
+</script>
+<!-- Mobile Bottom Navigation -->
+<nav
+    class="md:hidden fixed bottom-0 w-full bg-white dark:bg-[#1c2632] border-t border-[#dbe0e6] dark:border-gray-800 flex justify-around items-center pt-2 pb-6 z-50 shadow-2xl">
+    <a href="/dashboard" class="flex flex-col items-center gap-1 p-2 text-[#617289] dark:text-gray-400">
+        <span class="material-symbols-outlined text-2xl">dashboard</span>
+        <span class="text-[10px] font-bold">Home</span>
+    </a>
+    <a href="/inventory" class="flex flex-col items-center gap-1 p-2 text-[#617289] dark:text-gray-400">
+        <span class="material-symbols-outlined text-2xl">inventory_2</span>
+        <span class="text-[10px] font-medium">Stock</span>
+    </a>
+    <a href="/sales" class="flex flex-col items-center gap-1 p-2 text-primary">
+        <span class="material-symbols-outlined text-2xl">trending_up</span>
+        <span class="text-[10px] font-medium">Sales</span>
+    </a>
+    <a href="/reports" class="flex flex-col items-center gap-1 p-2 text-[#617289] dark:text-gray-400">
+        <span class="material-symbols-outlined text-2xl">analytics</span>
+        <span class="text-[10px] font-medium">Reports</span>
+    </a>
+    <a href="/settings" class="flex flex-col items-center gap-1 p-2 text-[#617289] dark:text-gray-400">
+        <span class="material-symbols-outlined text-2xl">settings</span>
+        <span class="text-[10px] font-medium">Settings</span>
+    </a>
+</nav>
+</body>
+
+</html>

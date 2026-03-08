@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Manager AI - Settings</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: 'Inter, sans-serif' },
+                    colors: {
+                        primary: '#136dec',
+                        "background-light": '#f8fafc',
+                        "background-dark": '#0f172a',
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-sans text-[#111418] dark:text-white transition-colors duration-200 flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside
+        class="w-64 bg-white dark:bg-[#1c2632] border-r border-[#dbe0e6] dark:border-white/10 flex-col hidden lg:flex h-full shadow-sm z-10 transition-colors">
+        <div class="p-6 flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+            onclick="window.location.href='/'">
+            <div class="size-8 text-primary">
+                <svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z">
+                    </path>
+                </svg>
+            </div>
+            <h2 class="text-xl font-black tracking-[-0.015em] text-[#111418] dark:text-white">Manager AI</h2>
+        </div>
+        <nav class="flex-1 px-4 py-4 flex flex-col gap-2 overflow-y-auto">
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#617289] dark:text-gray-400 font-medium hover:bg-background-light dark:hover:bg-white/5 transition-colors"
+                href="/dashboard">
+                <span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#617289] dark:text-gray-400 font-medium hover:bg-background-light dark:hover:bg-white/5 transition-colors"
+                href="/inventory">
+                <span class="material-symbols-outlined">inventory_2</span>
+                Inventory
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#617289] dark:text-gray-400 font-medium hover:bg-background-light dark:hover:bg-white/5 transition-colors"
+                href="/sales">
+                <span class="material-symbols-outlined">bar_chart</span>
+                Sales Analytics
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#617289] dark:text-gray-400 font-medium hover:bg-background-light dark:hover:bg-white/5 transition-colors"
+                href="/reports">
+                <span class="material-symbols-outlined">description</span>
+                System Reports
+            </a>
+            <div class="mt-auto mb-6 flex flex-col gap-2">
+                <div class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-bold cursor-pointer transition-colors"
+                    href="/settings">
+                    <span class="material-symbols-outlined">settings</span>
+                    <p class="text-sm font-medium">Settings</p>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div
+        class="flex-1 flex flex-col h-full overflow-hidden bg-background-light dark:bg-background-dark transition-colors">
+        <!-- Top Nav -->
+        <header
+            class="h-20 bg-white dark:bg-[#1c2632] border-b border-[#dbe0e6] dark:border-white/10 px-8 flex items-center justify-between sticky top-0 z-40 transition-colors shadow-sm">
+            <div class="flex items-center gap-4">
+                <h1 class="text-[#111418] dark:text-white text-2xl font-black tracking-tight flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-3xl">settings</span>
+                    Platform Settings
+                </h1>
+            </div>
+
+            <div class="flex items-center gap-4 relative">
+                <!-- Notifications Dropdown System -->
+                <div class="relative">
+                    <button id="notification-btn"
+                        onclick="document.getElementById('notification-dropdown').classList.toggle('hidden')"
+                        class="p-2 rounded-lg bg-[#f0f2f4] dark:bg-white/5 text-[#111418] dark:text-white hover:bg-[#e2e8f0] transition-colors relative mt-1">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span id="notification-badge"
+                            class="hidden absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-background-dark"></span>
+                    </button>
+                    <div id="notification-dropdown"
+                        class="hidden absolute right-0 mt-2 w-80 bg-white dark:bg-[#1c2632] border border-[#dbe0e6] dark:border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden">
+                        <div
+                            class="p-4 border-b border-[#dbe0e6] dark:border-white/10 flex justify-between items-center bg-gray-50 dark:bg-white/5">
+                            <h3 class="font-bold text-sm text-[#111418] dark:text-white">Active Alerts</h3>
+                            <span id="notification-count"
+                                class="text-[10px] bg-primary text-white px-2 py-0.5 rounded-full font-bold shadow-sm">0</span>
+                        </div>
+                        <div id="notification-list"
+                            class="max-h-80 overflow-y-auto divide-y divide-[#dbe0e6] dark:divide-white/10 flex flex-col">
+                            <div class="p-4 text-center text-xs text-gray-500">Loading system data...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 pl-4 border-l border-[#dbe0e6] dark:border-white/10 cursor-pointer">
+                    <div class="text-right hidden sm:block">
+                        <p class="user-profile-name text-xs font-bold text-[#111418] dark:text-white leading-none">
+                            Loading...</p>
+                        <p
+                            class="user-profile-role text-[10px] text-[#617289] dark:text-gray-400 mt-1 uppercase tracking-wider">
+                            Loading</p>
+                    </div>
+                    <div
+                        class="user-profile-avatar w-10 h-10 rounded-full flex items-center justify-center bg-[#facab0] text-primary font-bold text-lg shadow-sm border border-[#f0c2a8]">
+                        ?
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col gap-8 w-full max-w-[1000px] mx-auto pb-24 lg:pb-8">
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Sidebar sections inside content -->
+                <div class="md:col-span-1 flex flex-col gap-1">
+                    <button
+                        class="bg-white dark:bg-[#1c2632] text-left px-4 py-3 rounded-lg border-l-4 border-primary text-[#111418] dark:text-white font-bold text-sm shadow-sm transition-colors">
+                        General Profile
+                    </button>
+                    <button
+                        class="text-left px-4 py-3 rounded-lg border-l-4 border-transparent text-[#617289] hover:bg-white dark:hover:bg-white/5 hover:text-[#111418] dark:hover:text-white font-medium text-sm transition-colors cursor-not-allowed">
+                        Security & Login
+                    </button>
+                    <button
+                        class="text-left px-4 py-3 rounded-lg border-l-4 border-transparent text-[#617289] hover:bg-white dark:hover:bg-white/5 hover:text-[#111418] dark:hover:text-white font-medium text-sm transition-colors cursor-not-allowed">
+                        Workspace Data
+                    </button>
+                </div>
+
+                <!-- Main settings panel -->
+                <div class="md:col-span-2 flex flex-col gap-8">
+                    <!-- Profile Information -->
+                    <div
+                        class="bg-white dark:bg-[#1c2632] border border-[#dbe0e6] dark:border-white/10 rounded-2xl shadow-sm overflow-hidden flex flex-col">
+                        <div class="p-6 border-b border-[#dbe0e6] dark:border-white/10">
+                            <h3 class="text-lg font-bold text-[#111418] dark:text-white">Profile Information</h3>
+                            <p class="text-sm text-[#617289] dark:text-gray-400 mt-1">Update your account's profile
+                                details and public email.</p>
+                        </div>
+                        <div class="p-6 flex flex-col gap-6">
+
+
+                            <div class="flex flex-col gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-[#111418] dark:text-white mb-1">Company
+                                        Email</label>
+                                    <input type="email" disabled
+                                        class="w-full bg-gray-100 dark:bg-gray-800/50 border border-[#dbe0e6] dark:border-gray-700 rounded-lg px-4 py-2 text-sm text-[#617289] user-profile-email-input"
+                                        value="Loading...">
+                                    <p class="text-xs text-[#617289] dark:text-gray-500 mt-1">This email is verified and
+                                        cannot be changed.</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-[#111418] dark:text-white mb-1">Display
+                                        Name</label>
+                                    <input type="text"
+                                        class="w-full bg-white dark:bg-background-dark border border-[#dbe0e6] dark:border-gray-700 rounded-lg px-4 py-2 text-sm text-[#111418] dark:text-white user-profile-name-input"
+                                        value="Loading...">
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="p-4 border-t border-[#dbe0e6] dark:border-white/10 bg-gray-50 dark:bg-white/5 flex justify-end">
+                            <button onclick="alert('Profile details updated seamlessly!')"
+                                class="px-5 py-2 bg-primary text-white text-sm font-bold rounded-lg shadow-sm hover:bg-blue-600 transition-colors">Save
+                                Changes</button>
+                        </div>
+                    </div>
+
+                    <!-- App Preferences -->
+                    <div
+                        class="bg-white dark:bg-[#1c2632] border border-[#dbe0e6] dark:border-white/10 rounded-2xl shadow-sm overflow-hidden flex flex-col">
+                        <div class="p-6 border-b border-[#dbe0e6] dark:border-white/10">
+                            <h3 class="text-lg font-bold text-[#111418] dark:text-white">Application Preferences</h3>
+                            <p class="text-sm text-[#617289] dark:text-gray-400 mt-1">Customize the behavior of Manager
+                                AI.</p>
+                        </div>
+                        <div class="p-6 flex flex-col gap-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-bold text-[#111418] dark:text-white">Stock System Alerts</p>
+                                    <p class="text-xs text-[#617289] dark:text-gray-400 mt-0.5">Receive immediate
+                                        notifications for low stock warnings.</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" value="" class="sr-only peer" checked>
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary">
+                                    </div>
+                                </label>
+                            </div>
+                            <hr class="border-[#dbe0e6] dark:border-gray-700/50">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-bold text-[#111418] dark:text-white">Dark Mode Theme</p>
+                                    <p class="text-xs text-[#617289] dark:text-gray-400 mt-0.5">Toggle high contrast
+                                        dark colors globally.</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" value=""
+                                        onchange="document.documentElement.classList.toggle('dark');"
+                                        class="sr-only peer">
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Danger Zone -->
+                    <div
+                        class="bg-white dark:bg-[#1c2632] border border-red-200 dark:border-red-900/30 rounded-2xl shadow-sm overflow-hidden flex flex-col">
+                        <div class="p-6 border-b border-red-200 dark:border-red-900/30">
+                            <h3 class="text-lg font-bold text-red-600 dark:text-red-500">Danger Zone</h3>
+                            <p class="text-sm text-[#617289] dark:text-gray-400 mt-1">Irreversible actions impacting
+                                your business workspace.</p>
+                        </div>
+                        <div class="p-6 flex flex-col gap-6">
+                            <div class="flex items-center justify-between">
+                                <div class="pr-4">
+                                    <p class="text-sm font-bold text-[#111418] dark:text-white">Erase Workspace Data</p>
+                                    <p class="text-xs text-[#617289] dark:text-gray-400 mt-0.5 leading-relaxed">
+                                        Permanently format your entire inventory and sales database allowing you to
+                                        start fresh. This cannot be undone.</p>
+                                </div>
+                                <button onclick="resetInventoryData()"
+                                    class="px-4 py-2 border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 text-sm font-bold rounded-lg shrink-0 hover:bg-red-100 transition-colors">Format
+                                    Database</button>
+                            </div>
+                            <hr class="border-[#dbe0e6] dark:border-gray-700/50">
+                            <div class="flex items-center justify-between">
+                                <div class="pr-4">
+                                    <p class="text-sm font-bold text-[#111418] dark:text-white">Logout Session</p>
+                                    <p class="text-xs text-[#617289] dark:text-gray-400 mt-0.5">Securely end your active
+                                        user token on this device.</p>
+                                </div>
+                                <button onclick="window.location.href='/logout'"
+                                    class="px-4 py-2 border border-[#dbe0e6] dark:border-gray-700 text-[#111418] dark:text-white text-sm font-bold rounded-lg shrink-0 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">Sign
+                                    Out</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check current theme
+            if (document.documentElement.classList.contains('dark')) {
+                const toggler = document.querySelector('input[type="checkbox"][onchange]');
+                if (toggler) toggler.checked = true;
+            }
+
+            // Fetch Notifications Engine
+            fetch('/api/notifications').then(res => res.json()).then(data => {
+                const badge = document.getElementById('notification-badge');
+                const count = document.getElementById('notification-count');
+                const list = document.getElementById('notification-list');
+
+                count.textContent = data.unread_count;
+                if (data.unread_count > 0) {
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+
+                list.innerHTML = '';
+                data.notifications.forEach(n => {
+                    let icon = 'info';
+                    let color = 'text-blue-500';
+                    if (n.type === 'critical') { icon = 'warning'; color = 'text-red-500'; }
+                    if (n.type === 'warning') { icon = 'inventory_2'; color = 'text-yellow-500'; }
+                    if (n.type === 'success') { icon = 'check_circle'; color = 'text-green-500'; }
+
+                    list.innerHTML += `
+                        <div class="p-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer flex gap-3">
+                            <div class="${color} mt-0.5"><span class="material-symbols-outlined text-xl">${icon}</span></div>
+                            <div class="flex-1">
+                                <p class="text-xs font-bold text-[#111418] dark:text-white leading-tight">${n.title}</p>
+                                <p class="text-[10px] text-[#617289] dark:text-gray-400 mt-1">${n.message}</p>
+                                <p class="text-[9px] text-[#617289] dark:text-gray-500 mt-1.5 uppercase font-medium tracking-wider">${n.time}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }).catch(console.error);
+
+            // Fetch Profile
+            fetch('/api/user/profile').then(res => res.json()).then(data => {
+                if (data.name) {
+                    document.querySelectorAll('.user-profile-name').forEach(e => e.textContent = data.name);
+                    document.querySelectorAll('.user-profile-avatar').forEach(e => e.textContent = data.initial);
+                    document.querySelectorAll('.user-profile-role').forEach(e => e.textContent = data.role);
+                    document.querySelectorAll('.user-profile-email-input').forEach(e => e.value = data.email);
+                    document.querySelectorAll('.user-profile-name-input').forEach(e => e.value = data.name);
+                }
+            }).catch(console.error);
+        });
+
+        const resetInventoryData = async () => {
+            if (confirm("Are you sure you want to reset your inventory? This will securely delete all products, stock levels, and linked sales data so you can upload a fresh file.")) {
+                try {
+                    const res = await fetch('/api/inventory/reset', { method: 'POST' });
+                    if (res.ok) {
+                        alert('System database formatted successfully!');
+                    } else {
+                        alert("Failed to reset inventory.");
+                    }
+                } catch (e) {
+                    alert("Network Error.");
+                }
+            }
+        };
+    </script>
+    <!-- Mobile Bottom Navigation -->
+    <nav
+        class="lg:hidden fixed bottom-0 w-full bg-white dark:bg-[#1c2632] border-t border-[#dbe0e6] dark:border-gray-800 flex justify-around items-center pt-2 pb-6 z-50 shadow-2xl">
+        <a href="/dashboard" class="flex flex-col items-center gap-1 p-2 text-[#617289] dark:text-gray-400">
+            <span class="material-symbols-outlined text-2xl">dashboard</span>
+            <span class="text-[10px] font-bold">Home</span>
+        </a>
+        <a href="/inventory" class="flex flex-col items-center gap-1 p-2 text-[#617289] dark:text-gray-400">
+            <span class="material-symbols-outlined text-2xl">inventory_2</span>
+            <span class="text-[10px] font-medium">Stock</span>
+        </a>
+        <a href="/sales" class="flex flex-col items-center gap-1 p-2 text-[#617289] dark:text-gray-400">
+            <span class="material-symbols-outlined text-2xl">trending_up</span>
+            <span class="text-[10px] font-medium">Sales</span>
+        </a>
+        <a href="/reports" class="flex flex-col items-center gap-1 p-2 text-[#617289] dark:text-gray-400">
+            <span class="material-symbols-outlined text-2xl">analytics</span>
+            <span class="text-[10px] font-medium">Reports</span>
+        </a>
+        <a href="/settings" class="flex flex-col items-center gap-1 p-2 text-primary">
+            <span class="material-symbols-outlined text-2xl">settings</span>
+            <span class="text-[10px] font-medium">Settings</span>
+        </a>
+    </nav>
+</body>
+
+</html>

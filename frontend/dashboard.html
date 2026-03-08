@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Manager AI - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white transition-colors duration-200">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Side Navigation -->
+        <aside
+            class="hidden lg:flex w-64 border-r border-[#dbe0e6] dark:border-white/10 bg-white dark:bg-background-dark flex-col">
+            <div class="p-6 flex flex-col gap-1">
+                <h1 onclick="window.location.href='/'"
+                    class="cursor-pointer hover:opacity-80 transition-opacity text-primary text-xl font-bold leading-normal flex items-center gap-2">
+                    <span class="material-symbols-outlined">auto_awesome</span>
+                    Manager AI
+                </h1>
+                <p class="text-[#617289] dark:text-gray-400 text-xs font-normal">Business Operations</p>
+            </div>
+            <nav class="flex-1 px-4 flex flex-col gap-2">
+                <div onclick="window.location.href='/dashboard'"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary cursor-pointer">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <p class="text-sm font-semibold">Dashboard</p>
+                </div>
+                <div onclick="window.location.href='/inventory'"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#617289] dark:text-gray-400 hover:bg-[#f0f2f4] dark:hover:bg-white/5 transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined">inventory_2</span>
+                    <p class="text-sm font-medium">Inventory</p>
+                </div>
+                <div onclick="window.location.href='/sales'"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#617289] dark:text-gray-400 hover:bg-[#f0f2f4] dark:hover:bg-white/5 transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined">trending_up</span>
+                    <p class="text-sm font-medium">Sales</p>
+                </div>
+                <div onclick="window.location.href='/reports'"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#617289] dark:text-gray-400 hover:bg-[#f0f2f4] dark:hover:bg-white/5 transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined">analytics</span>
+                    <p class="text-sm font-medium">Reports</p>
+                </div>
+                <div class="mt-auto mb-6 flex flex-col gap-2">
+                    <div onclick="window.location.href='/settings'"
+                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#617289] dark:text-gray-400 hover:bg-[#f0f2f4] dark:hover:bg-white/5 transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined">settings</span>
+                        <p class="text-sm font-medium">Settings</p>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col overflow-y-auto pb-20 lg:pb-0">
+            <!-- Top Navbar -->
+            <header
+                class="flex items-center justify-between border-b border-[#dbe0e6] dark:border-white/10 bg-white dark:bg-background-dark px-8 py-4 sticky top-0 z-10">
+                <div class="flex items-center gap-8 flex-1">
+                    <h2 class="text-[#111418] dark:text-white text-lg font-bold tracking-tight">Business Intelligence
+                        Dashboard</h2>
+                    <div class="relative w-full max-w-md">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#617289] text-xl">search</span>
+                        <input
+                            class="w-full bg-[#f0f2f4] dark:bg-white/5 border-none rounded-lg py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary outline-none transition-all"
+                            placeholder="Search data, metrics or items..." type="text" />
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 relative">
+                    <!-- Notifications Dropdown System -->
+                    <div class="relative">
+                        <button id="notification-btn"
+                            onclick="document.getElementById('notification-dropdown').classList.toggle('hidden')"
+                            class="p-2 rounded-lg bg-[#f0f2f4] dark:bg-white/5 text-[#111418] dark:text-white hover:bg-[#e2e8f0] transition-colors relative">
+                            <span class="material-symbols-outlined">notifications</span>
+                            <span id="notification-badge"
+                                class="hidden absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-background-dark"></span>
+                        </button>
+                        <div id="notification-dropdown"
+                            class="hidden absolute right-0 mt-2 w-80 bg-white dark:bg-[#1c2632] border border-[#dbe0e6] dark:border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden">
+                            <div
+                                class="p-4 border-b border-[#dbe0e6] dark:border-white/10 flex justify-between items-center bg-gray-50 dark:bg-white/5">
+                                <h3 class="font-bold text-sm text-[#111418] dark:text-white">Active Alerts</h3>
+                                <span id="notification-count"
+                                    class="text-[10px] bg-primary text-white px-2 py-0.5 rounded-full font-bold shadow-sm">0</span>
+                            </div>
+                            <div id="notification-list"
+                                class="max-h-80 overflow-y-auto divide-y divide-[#dbe0e6] dark:divide-white/10 flex flex-col">
+                                <div class="p-4 text-center text-xs text-gray-500">Loading system data...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div onclick="window.location.href='/profile'"
+                        class="flex items-center gap-3 pl-4 border-l border-[#dbe0e6] dark:border-white/10 cursor-pointer hover:opacity-80 transition-opacity">
+                        <div class="text-right hidden sm:block">
+                            <p class="user-profile-name text-xs font-bold text-[#111418] dark:text-white leading-none">
+                                Loading...</p>
+                            <p
+                                class="user-profile-role text-[10px] text-[#617289] dark:text-gray-400 mt-1 uppercase tracking-wider">
+                                Loading</p>
+                        </div>
+                        <div
+                            class="user-profile-avatar w-10 h-10 rounded-full flex items-center justify-center bg-[#facab0] text-primary font-bold text-lg shadow-sm border border-[#f0c2a8]">
+                            ?
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Dashboard Content -->
+            <div class="p-8 flex flex-col gap-8">
+                <!-- Stats Row -->
+                <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div
+                        class="bg-white dark:bg-background-dark rounded-xl p-6 border border-[#dbe0e6] dark:border-white/10 shadow-sm transition-all hover:shadow-md">
+                        <div class="flex justify-between items-start mb-4">
+                            <p class="text-[#617289] dark:text-gray-400 text-sm font-medium">Total Revenue</p>
+                            <span
+                                class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">payments</span>
+                        </div>
+                        <p id="widget-rev" class="text-[#111418] dark:text-white text-3xl font-bold tracking-tight">
+                            $0.00</p>
+                        <div class="mt-4 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[#07883b] text-sm font-bold">trending_up</span>
+                            <p class="text-[#07883b] text-sm font-bold">+12.5%</p>
+                            <span class="text-[#617289] text-xs ml-1">vs last month</span>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-background-dark rounded-xl p-6 border border-[#dbe0e6] dark:border-white/10 shadow-sm transition-all hover:shadow-md">
+                        <div class="flex justify-between items-start mb-4">
+                            <p class="text-[#617289] dark:text-gray-400 text-sm font-medium">Low Stock Alerts</p>
+                            <span
+                                class="material-symbols-outlined text-red-500 bg-red-500/10 p-2 rounded-lg">warning</span>
+                        </div>
+                        <p id="widget-low-stock" class="text-red-500 text-3xl font-bold tracking-tight">0 Items</p>
+                        <div class="mt-4 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-red-500 text-sm font-bold">priority_high</span>
+                            <p class="text-red-500 text-sm font-bold">Action Required</p>
+                            <span class="text-[#617289] text-xs ml-1">critical threshold</span>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-background-dark rounded-xl p-6 border border-[#dbe0e6] dark:border-white/10 shadow-sm transition-all hover:shadow-md">
+                        <div class="flex justify-between items-start mb-4">
+                            <p class="text-[#617289] dark:text-gray-400 text-sm font-medium">Best Seller</p>
+                            <span
+                                class="material-symbols-outlined text-amber-500 bg-amber-500/10 p-2 rounded-lg">workspace_premium</span>
+                        </div>
+                        <p id="widget-best-name"
+                            class="text-[#111418] dark:text-white text-2xl font-bold leading-tight">Loading...</p>
+                        <div class="mt-4 flex items-center gap-1">
+                            <p id="widget-best-qty" class="text-primary text-sm font-bold">0 Units</p>
+                            <span class="text-[#617289] text-xs ml-1">sold this week</span>
+                        </div>
+                    </div>
+                </section>
+                <!-- Charts and AI Column -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Sales Trend Chart -->
+                    <div
+                        class="lg:col-span-2 bg-white dark:bg-background-dark rounded-xl border border-[#dbe0e6] dark:border-white/10 overflow-hidden shadow-sm flex flex-col">
+                        <div
+                            class="p-6 border-b border-[#dbe0e6] dark:border-white/10 flex justify-between items-center">
+                            <div>
+                                <h3 class="text-[#111418] dark:text-white text-base font-bold">Sales Trend</h3>
+                                <p id="chart-subtitle" class="text-[#617289] dark:text-gray-400 text-xs">Revenue
+                                    distribution</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button id="btn-7-days" onclick="loadDashboardData(7)"
+                                    class="filter-btn px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold transition-all">7
+                                    Days</button>
+                                <button id="btn-30-days" onclick="loadDashboardData(30)"
+                                    class="filter-btn px-3 py-1 rounded-full text-[#617289] text-xs font-bold hover:bg-black/5 dark:hover:bg-white/5 transition-all">30
+                                    Days</button>
+                            </div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-center min-h-[300px]">
+                            <canvas id="salesChart" class="w-full h-full"></canvas>
+                        </div>
+                    </div>
+                    <!-- Conversational AI -->
+                    <div
+                        class="bg-white dark:bg-background-dark rounded-xl border border-[#dbe0e6] dark:border-white/10 flex flex-col shadow-sm">
+                        <div class="p-6 border-b border-[#dbe0e6] dark:border-white/10 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">chat_bubble</span>
+                            <h3 class="text-[#111418] dark:text-white text-base font-bold">Conversational AI</h3>
+                        </div>
+                        <div id="chat-window" class="flex-1 p-6 overflow-y-auto max-h-[300px] flex flex-col gap-4">
+                            <div
+                                class="self-start bg-[#f0f2f4] dark:bg-white/5 rounded-xl rounded-tl-none p-3 max-w-[85%]">
+                                <p class="text-sm text-[#111418] dark:text-white">Hello! I'm your BI Assistant. Ask me
+                                    anything about your business data.</p>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t border-[#dbe0e6] dark:border-white/10 bg-[#f8fafc] dark:bg-white/5">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <button onclick="fillChat('Which products are currently out of stock?')"
+                                    class="text-[10px] bg-white dark:bg-[#1c2632] border border-[#dbe0e6] dark:border-white/10 px-2 py-1 rounded-md text-[#617289] dark:text-gray-400 hover:bg-primary/10 hover:text-primary hover:border-primary transition-all">Out
+                                    of stock items?</button>
+                                <button onclick="fillChat('Calculate our total gross revenue.')"
+                                    class="text-[10px] bg-white dark:bg-[#1c2632] border border-[#dbe0e6] dark:border-white/10 px-2 py-1 rounded-md text-[#617289] dark:text-gray-400 hover:bg-primary/10 hover:text-primary hover:border-primary transition-all">Total
+                                    Revenue</button>
+                                <button onclick="fillChat('What is the most expensive item in the inventory?')"
+                                    class="text-[10px] bg-white dark:bg-[#1c2632] border border-[#dbe0e6] dark:border-white/10 px-2 py-1 rounded-md text-[#617289] dark:text-gray-400 hover:bg-primary/10 hover:text-primary hover:border-primary transition-all">Most
+                                    valuable item?</button>
+                            </div>
+                            <script>
+                                function fillChat(q) {
+                                    document.getElementById('chat-query').value = q;
+                                    document.getElementById('chat-submit').click();
+                                }
+                            </script>
+                            <div class="flex gap-2">
+                                <input id="chat-query"
+                                    class="flex-1 text-sm bg-white dark:bg-background-dark border border-[#dbe0e6] dark:border-white/10 rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-primary"
+                                    placeholder="Ask a question..." type="text" />
+                                <button id="chat-submit"
+                                    class="bg-primary text-white p-2 rounded-lg hover:bg-primary/90">
+                                    <span class="material-symbols-outlined text-base">send</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Extra Engagment Charts Output -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div
+                        class="bg-white dark:bg-background-dark rounded-xl border border-[#dbe0e6] dark:border-white/10 overflow-hidden shadow-sm flex flex-col">
+                        <div
+                            class="p-6 border-b border-[#dbe0e6] dark:border-white/10 flex justify-between items-center">
+                            <div>
+                                <h3 class="text-[#111418] dark:text-white text-base font-bold">Revenue by Category</h3>
+                                <p class="text-[#617289] dark:text-gray-400 text-xs">Total earnings split</p>
+                            </div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-center min-h-[300px]">
+                            <canvas id="categoryChart" class="w-full h-full"></canvas>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-background-dark rounded-xl border border-[#dbe0e6] dark:border-white/10 overflow-hidden shadow-sm flex flex-col">
+                        <div
+                            class="p-6 border-b border-[#dbe0e6] dark:border-white/10 flex justify-between items-center">
+                            <div>
+                                <h3 class="text-[#111418] dark:text-white text-base font-bold">Top 5 Selling Items</h3>
+                                <p class="text-[#617289] dark:text-gray-400 text-xs">Based on units sold</p>
+                            </div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-center min-h-[300px]">
+                            <canvas id="topProductsChart" class="w-full h-full"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- Inventory Table Section -->
+                <section
+                    class="bg-white dark:bg-background-dark rounded-xl border border-[#dbe0e6] dark:border-white/10 overflow-hidden shadow-sm">
+                    <div class="p-6 border-b border-[#dbe0e6] dark:border-white/10 flex justify-between items-center">
+                        <h3 class="text-[#111418] dark:text-white text-base font-bold">Inventory Snapshot</h3>
+                        <button onclick="window.location.href='/inventory'"
+                            class="text-primary text-sm font-bold flex items-center gap-1">
+                            View Full Inventory
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead
+                                class="bg-[#f8fafc] dark:bg-white/5 text-[#617289] dark:text-gray-400 text-xs uppercase tracking-wider">
+                                <tr>
+                                    <th class="px-6 py-4 font-bold">Item Name</th>
+                                    <th class="px-6 py-4 font-bold">SKU</th>
+                                    <th class="px-6 py-4 font-bold">Current Stock</th>
+                                    <th class="px-6 py-4 font-bold">Price</th>
+                                    <th class="px-6 py-4 font-bold">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboard-inventory-table"
+                                class="divide-y divide-[#dbe0e6] dark:divide-white/10 text-sm">
+                                <!-- JS loaded -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+            <footer class="p-8 mt-auto text-center border-t border-[#dbe0e6] dark:border-white/10">
+                <p class="text-[#617289] dark:text-gray-400 text-xs">© 2024 Manager AI. All systems
+                    are operating normally.</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            let salesChartInstance = null;
+
+            window.loadDashboardData = async (days) => {
+                // Update Button Visuals
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('bg-primary/10', 'text-primary');
+                    btn.classList.add('text-[#617289]', 'hover:bg-black/5', 'dark:hover:bg-white/5');
+                });
+                const activeBtn = document.getElementById(`btn-${days}-days`);
+                if (activeBtn) {
+                    activeBtn.classList.remove('text-[#617289]', 'hover:bg-black/5', 'dark:hover:bg-white/5');
+                    activeBtn.classList.add('bg-primary/10', 'text-primary');
+                }
+
+                document.getElementById('chart-subtitle').textContent = `Revenue distribution for the last ${days} days`;
+
+                try {
+                    // Fetch Stats
+                    const statsRes = await fetch(`/api/dashboard/stats?days=${days}`);
+                    const data = await statsRes.json();
+
+                    document.getElementById('widget-rev').textContent = `$${data.total_revenue.toLocaleString()}`;
+                    document.getElementById('widget-low-stock').textContent = `${data.low_stock_count} Items`;
+                    document.getElementById('widget-best-name').textContent = data.best_seller_name || 'No Sales Yet';
+                    document.getElementById('widget-best-qty').textContent = `${data.best_seller_qty} Units`;
+
+                    if (data.low_stock_count === 0) {
+                        document.getElementById('widget-low-stock').classList.replace('text-red-500', 'text-green-500');
+                    } else {
+                        document.getElementById('widget-low-stock').classList.replace('text-green-500', 'text-red-500');
+                    }
+
+                    // Fetch Chart
+                    const chartRes = await fetch(`/api/dashboard/chart?days=${days}`);
+                    const chartData = await chartRes.json();
+
+                    if (salesChartInstance) {
+                        salesChartInstance.destroy();
+                    }
+
+                    const ctx = document.getElementById('salesChart').getContext('2d');
+                    salesChartInstance = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: chartData.labels,
+                            datasets: [{
+                                label: 'Daily Revenue',
+                                data: chartData.data,
+                                borderColor: '#136dec',
+                                backgroundColor: 'rgba(19, 109, 236, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 2,
+                                pointRadius: 3,
+                                pointBackgroundColor: '#136dec'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: { display: true, color: 'rgba(200, 200, 200, 0.1)' },
+                                    ticks: { color: '#617289' }
+                                },
+                                x: {
+                                    grid: { display: false },
+                                    ticks: { color: '#617289', maxTicksLimit: 7 }
+                                }
+                            }
+                        }
+                    });
+
+                    // CATEGORY DOUGHNUT CHART
+                    if (window.categoryChartInstance) {
+                        window.categoryChartInstance.destroy();
+                    }
+                    const ctxCat = document.getElementById('categoryChart').getContext('2d');
+                    window.categoryChartInstance = new Chart(ctxCat, {
+                        type: 'doughnut',
+                        data: {
+                            labels: chartData.cat_labels,
+                            datasets: [{
+                                data: chartData.cat_data,
+                                backgroundColor: ['#136dec', '#07883b', '#eab308', '#ec4899', '#8b5cf6'],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { position: 'bottom', labels: { color: '#617289' } }
+                            }
+                        }
+                    });
+
+                    // TOP PRODUCTS BAR CHART
+                    if (window.topProductsChartInstance) {
+                        window.topProductsChartInstance.destroy();
+                    }
+                    const ctxProd = document.getElementById('topProductsChart').getContext('2d');
+                    window.topProductsChartInstance = new Chart(ctxProd, {
+                        type: 'bar',
+                        data: {
+                            labels: chartData.prod_labels,
+                            datasets: [{
+                                label: 'Units Sold',
+                                data: chartData.prod_data,
+                                backgroundColor: '#136dec',
+                                borderRadius: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                y: { beginAtZero: true, grid: { color: 'rgba(200, 200, 200, 0.1)' }, ticks: { color: '#617289' } },
+                                x: { grid: { display: false }, ticks: { color: '#617289' } }
+                            }
+                        }
+                    });
+
+                } catch (e) {
+                    console.error("Failed loading dashboard data:", e);
+                }
+            };
+
+            // Initial load of defaults
+            window.loadDashboardData(30);
+
+            // Fetch Notifications Engine
+            fetch('/api/notifications').then(res => res.json()).then(data => {
+                const badge = document.getElementById('notification-badge');
+                const count = document.getElementById('notification-count');
+                const list = document.getElementById('notification-list');
+
+                count.textContent = data.unread_count;
+                if (data.unread_count > 0) {
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+
+                list.innerHTML = '';
+                data.notifications.forEach(n => {
+                    let icon = 'info';
+                    let color = 'text-blue-500';
+                    if (n.type === 'critical') { icon = 'warning'; color = 'text-red-500'; }
+                    if (n.type === 'warning') { icon = 'inventory_2'; color = 'text-yellow-500'; }
+                    if (n.type === 'success') { icon = 'check_circle'; color = 'text-green-500'; }
+
+                    list.innerHTML += `
+                        <div class="p-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer flex gap-3">
+                            <div class="${color} mt-0.5"><span class="material-symbols-outlined text-xl">${icon}</span></div>
+                            <div class="flex-1">
+                                <p class="text-xs font-bold text-[#111418] dark:text-white leading-tight">${n.title}</p>
+                                <p class="text-[10px] text-[#617289] dark:text-gray-400 mt-1">${n.message}</p>
+                                <p class="text-[9px] text-[#617289] dark:text-gray-500 mt-1.5 uppercase font-medium tracking-wider">${n.time}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }).catch(console.error);
+
+            // Fetch Profile
+            fetch('/api/user/profile').then(res => res.json()).then(data => {
+                if (data.name) {
+                    document.querySelectorAll('.user-profile-name').forEach(el => el.textContent = data.name);
+                    document.querySelectorAll('.user-profile-role').forEach(el => el.textContent = data.role);
+                    document.querySelectorAll('.user-profile-avatar').forEach(el => {
+                        el.textContent = data.initial;
+                        el.style.backgroundImage = 'none';
+                    });
+                }
+            }).catch(console.error);
+
+            // Fetch Recent Inventory independently
+            try {
+                const invRes = await fetch('/api/inventory/data');
+                const invData = await invRes.json();
+                const tb = document.getElementById('dashboard-inventory-table');
+
+                if (!invData.inventory || invData.inventory.length === 0) {
+                    tb.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-sm text-gray-400">Your inventory is currently empty. Upload a CSV to populate.</td></tr>';
+                } else {
+                    tb.innerHTML = '';
+                    // Limit to 5 for snapshot
+                    const snapshot = invData.inventory.slice(0, 5);
+                    snapshot.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.className = "hover:bg-[#f8fafc] dark:hover:bg-white/5 transition-colors";
+
+                        const statusColorClass = item.status === "Low Stock" ? "bg-red-500/10 text-red-500" : "bg-[#07883b]/10 text-[#07883b]";
+
+                        tr.innerHTML = `
+                            <td class="px-6 py-4 font-semibold text-[#111418] dark:text-white">${item.name}</td>
+                            <td class="px-6 py-4 text-[#617289] dark:text-gray-400">${item.sku}</td>
+                            <td class="px-6 py-4">${item.current_stock} Units</td>
+                            <td class="px-6 py-4 font-medium">$${item.price.toFixed(2)}</td>
+                            <td class="px-6 py-4">
+                                <span class="px-2 py-1 rounded ${statusColorClass} text-[10px] font-bold uppercase">${item.status}</span>
+                            </td>
+                        `;
+                        tb.appendChild(tr);
+                    });
+                }
+            } catch (e) {
+                console.error("Failed to load inventory snapshot:", e);
+            }
+
+            // Setup the Conversational AI
+            const chatWindow = document.getElementById('chat-window');
+            const chatInput = document.getElementById('chat-query');
+            const chatSubmit = document.getElementById('chat-submit');
+
+            const appendMessage = (text, isUser) => {
+                const div = document.createElement('div');
+                if (isUser) {
+                    div.className = "self-end bg-primary text-white rounded-xl rounded-tr-none p-3 max-w-[85%]";
+                    div.innerHTML = `<p class="text-sm font-medium">${text}</p>`;
+                } else {
+                    div.className = "self-start bg-[#f0f2f4] dark:bg-white/5 rounded-xl rounded-tl-none p-3 max-w-[85%] border-l-4 border-primary";
+                    div.innerHTML = `<p class="text-sm text-[#111418] dark:text-white">${text}</p>`;
+                }
+                chatWindow.appendChild(div);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            };
+
+            const handleChat = async () => {
+                const query = chatInput.value.trim();
+                if (!query) return;
+
+                chatInput.value = "";
+                appendMessage(query, true);
+
+                try {
+                    const res = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ query })
+                    });
+                    const data = await res.json();
+                    appendMessage(data.answer || "Sorry, I am having trouble fetching data.", false);
+                } catch (e) {
+                    appendMessage("Error reaching the AI service backend.", false);
+                }
+            };
+
+            chatSubmit.addEventListener('click', handleChat);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleChat();
+            });
+        });
+    </script>
+    <!-- Mobile Bottom Navigation -->
+    <nav
+        class="lg:hidden fixed bottom-0 w-full bg-white dark:bg-[#1c2632] border-t border-[#dbe0e6] dark:border-gray-800 flex justify-around items-center pt-2 pb-6 z-50 shadow-2xl">
+        <a href="/dashboard" class="flex flex-col items-center gap-1 p-2 text-primary">
+            <span class="material-symbols-outlined text-2xl">dashboard</span>
+            <span class="text-[10px] font-bold">Home</span>
+        </a>
+        <a href="/inventory" class="flex flex-col items-center gap-1 p-2 text-[#617289] dark:text-gray-400">
+            <span class="material-symbols-outlined text-2xl">inventory_2</span>
+            <span class="text-[10px] font-medium">Stock</span>
+        </a>
+        <a href="/sales" class="flex flex-col items-center gap-1 p-2 text-[#617289] dark:text-gray-400">
+            <span class="material-symbols-outlined text-2xl">trending_up</span>
+            <span class="text-[10px] font-medium">Sales</span>
+        </a>
+        <a href="/reports" class="flex flex-col items-center gap-1 p-2 text-[#617289] dark:text-gray-400">
+            <span class="material-symbols-outlined text-2xl">analytics</span>
+            <span class="text-[10px] font-medium">Reports</span>
+        </a>
+        <a href="/settings" class="flex flex-col items-center gap-1 p-2 text-[#617289] dark:text-gray-400">
+            <span class="material-symbols-outlined text-2xl">settings</span>
+            <span class="text-[10px] font-medium">Settings</span>
+        </a>
+    </nav>
+</body>
+
+</html>

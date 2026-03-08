@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Manager AI - Sales Insights &amp; Business Intelligence</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+
+
+
+
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white antialiased">
+    <header
+        class="sticky top-0 z-50 w-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-solid border-[#f0f2f4] dark:border-gray-800">
+        <div class="max-w-[1280px] mx-auto px-6 py-3 flex items-center justify-between">
+            <div onclick="window.location.href='/'"
+                class="flex items-center gap-4 text-primary cursor-pointer hover:opacity-80 transition-opacity">
+                <div class="size-8">
+                    <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"
+                            fill="currentColor"></path>
+                    </svg>
+                </div>
+                <h2 class="text-[#111418] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">Manager
+                    AI</h2>
+            </div>
+            <div class="hidden md:flex flex-1 justify-center gap-8">
+                <a class="text-[#111418] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors"
+                    href="#features">Sales Features</a>
+                <a class="text-[#111418] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors"
+                    href="#how-it-works">How it Works</a>
+                <a class="text-[#111418] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors"
+                    href="/dashboard">Dashboard</a>
+                <a class="text-[#111418] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors"
+                    href="#pricing">Pricing</a>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="window.location.href='/login'"
+                    class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-[#f0f2f4] dark:bg-gray-800 text-[#111418] dark:text-white text-sm font-bold transition-all hover:bg-gray-200">
+                    Login
+                </button>
+                <button onclick="window.location.href='/login'"
+                    class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold transition-all hover:opacity-90 shadow-sm">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="max-w-[1280px] mx-auto px-6 py-12 md:py-24">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="flex-1 flex flex-col gap-8">
+                    <div class="flex flex-col gap-4">
+                        <span
+                            class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider w-fit">Expert
+                            Sales Insights for MSMEs</span>
+                        <h1
+                            class="text-[#111418] dark:text-white text-5xl md:text-6xl font-black leading-[1.1] tracking-[-0.033em]">
+                            Your Manager AI Sales Assistant is Here
+                        </h1>
+                        <p class="text-[#617289] dark:text-gray-400 text-lg md:text-xl font-normal max-w-[540px]">
+                            Transform your sales data into actionable growth strategies in seconds. Manager AI handles
+                            the analysis so you can focus on closing.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="window.location.href='/login'"
+                            class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-lg h-14 px-8 bg-primary text-white text-lg font-bold shadow-lg hover:translate-y-[-2px] transition-all">
+                            Start Analyzing
+                        </button>
+                        <button onclick="window.location.href='/login'"
+                            class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-lg h-14 px-8 bg-[#f0f2f4] dark:bg-gray-800 text-[#111418] dark:text-white text-lg font-bold hover:bg-gray-200 transition-all">
+                            <span class="material-symbols-outlined mr-2">play_circle</span>
+                            Watch Demo
+                        </button>
+                    </div>
+                </div>
+                <div class="flex-1 w-full">
+                    <div
+                        class="w-full bg-gradient-to-br from-primary/20 to-blue-600/30 aspect-video rounded-2xl border border-primary/10 shadow-2xl relative overflow-hidden group">
+                        <div class="absolute inset-0 flex items-center justify-center p-8">
+                            <div
+                                class="w-full h-full bg-white/40 dark:bg-black/20 backdrop-blur-sm rounded-xl border border-white/40 flex items-center justify-center">
+                                <span
+                                    class="material-symbols-outlined text-primary text-8xl animate-pulse">query_stats</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bg-white dark:bg-background-dark py-20 border-y border-[#f0f2f4] dark:border-gray-800"
+            id="how-it-works">
+            <div class="max-w-[960px] mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-primary font-bold text-sm uppercase tracking-widest mb-3">Simple 3-Step Insights
+                    </h2>
+                    <h3 class="text-[#111418] dark:text-white text-4xl font-black tracking-tight">How Manager AI Works
+                    </h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-[40px_1fr] gap-x-6 gap-y-0">
+                    <div class="flex flex-col items-center gap-1 pt-3">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-white">
+                            <span class="material-symbols-outlined text-xl">cloud_upload</span>
+                        </div>
+                        <div class="w-[2px] bg-primary/20 h-full min-h-[60px]"></div>
+                    </div>
+                    <div class="flex flex-col py-3 pb-12">
+                        <h4 class="text-[#111418] dark:text-white text-xl font-bold mb-1">Upload Data</h4>
+                        <p class="text-[#617289] dark:text-gray-400 text-base">Directly sync your POS systems or upload
+                            sales CSV, Excel, and revenue PDFs from any source.</p>
+                    </div>
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-white">
+                            <span class="material-symbols-outlined text-xl">psychology</span>
+                        </div>
+                        <div class="w-[2px] bg-primary/20 h-full min-h-[60px]"></div>
+                    </div>
+                    <div class="flex flex-col py-3 pb-12">
+                        <h4 class="text-[#111418] dark:text-white text-xl font-bold mb-1">Sales Intelligence Analysis
+                        </h4>
+                        <p class="text-[#617289] dark:text-gray-400 text-base">Manager AI processes patterns, buying
+                            cycles, and identifies hidden revenue leaks in seconds.</p>
+                    </div>
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-white">
+                            <span class="material-symbols-outlined text-xl">leaderboard</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col py-3">
+                        <h4 class="text-[#111418] dark:text-white text-xl font-bold mb-1">Vibrant Visualizations</h4>
+                        <p class="text-[#617289] dark:text-gray-400 text-base">Receive real-time automated sales reports
+                            and chat with your performance data using natural language.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-24 max-w-[1280px] mx-auto px-6" id="features">
+            <div class="flex flex-col gap-12">
+                <div class="flex flex-col gap-4 text-center md:text-left">
+                    <h2
+                        class="text-[#111418] dark:text-white text-4xl md:text-5xl font-black leading-tight tracking-tight max-w-[720px]">
+                        Powerful Sales Tools for Your Business
+                    </h2>
+                    <p class="text-[#617289] dark:text-gray-400 text-lg max-w-[720px]">Manager AI provides everything
+                        you need to track and boost your sales without complex spreadsheets.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div
+                        class="group flex flex-col gap-4 rounded-xl border border-[#dbe0e6] dark:border-gray-800 bg-white dark:bg-gray-900/50 p-8 transition-all hover:shadow-xl hover:border-primary/50">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary transition-transform group-hover:scale-110">
+                            <span class="material-symbols-outlined text-2xl">description</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <h3 class="text-[#111418] dark:text-white text-xl font-bold">AI Data Understanding</h3>
+                            <p class="text-[#617289] dark:text-gray-400 text-base">Upload any sales document and let
+                                Manager AI extract key performance metrics automatically.</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group flex flex-col gap-4 rounded-xl border border-[#dbe0e6] dark:border-gray-800 bg-white dark:bg-gray-900/50 p-8 transition-all hover:shadow-xl hover:border-primary/50">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary transition-transform group-hover:scale-110">
+                            <span class="material-symbols-outlined text-2xl">chat_bubble</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <h3 class="text-[#111418] dark:text-white text-xl font-bold">Sales Q&amp;A</h3>
+                            <p class="text-[#617289] dark:text-gray-400 text-base">Ask questions like 'Which region
+                                outperformed targets this month?' and get instant visual answers.</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group flex flex-col gap-4 rounded-xl border border-[#dbe0e6] dark:border-gray-800 bg-white dark:bg-gray-900/50 p-8 transition-all hover:shadow-xl hover:border-primary/50">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary transition-transform group-hover:scale-110">
+                            <span class="material-symbols-outlined text-2xl">monitoring</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <h3 class="text-[#111418] dark:text-white text-xl font-bold">Automated Sales Alerts</h3>
+                            <p class="text-[#617289] dark:text-gray-400 text-base">Get notified immediately when sales
+                                targets are hit or when revenue dips below threshold via SMS or Email.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New File Structure Section -->
+        <section class="py-24 max-w-[1280px] mx-auto px-6 bg-white dark:bg-background-dark text-center md:text-left"
+            id="file-structure">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1 flex flex-col gap-6">
+                    <span
+                        class="inline-block px-3 py-1 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-bold uppercase tracking-wider w-fit">Prepare
+                        Your Data</span>
+                    <h2 class="text-[#111418] dark:text-white text-4xl font-black leading-tight tracking-tight">
+                        Simple File Structures
+                    </h2>
+                    <p class="text-[#617289] dark:text-gray-400 text-lg">
+                        To get deep AI insights, Manager AI processes standard CSV or Excel files. Simply ensure your
+                        files contain these basic columns to unlock the full potential of your dashboard.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        <div
+                            class="border border-[#dbe0e6] dark:border-gray-800 p-6 rounded-xl bg-gray-50 dark:bg-gray-900/50">
+                            <div class="flex flex-col gap-2">
+                                <h3 class="font-bold text-[#111418] dark:text-white flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary text-xl">inventory_2</span>
+                                    Inventory File
+                                </h3>
+                                <ul
+                                    class="text-sm text-[#617289] dark:text-gray-400 list-disc list-inside mt-2 space-y-1">
+                                    <li><strong class="text-gray-700 dark:text-gray-300">sku</strong> (Unique ID)</li>
+                                    <li><strong class="text-gray-700 dark:text-gray-300">name</strong> (Product name)
+                                    </li>
+                                    <li><strong class="text-gray-700 dark:text-gray-300">category</strong> (Group tag)
+                                    </li>
+                                    <li><strong class="text-gray-700 dark:text-gray-300">quantity</strong> (Current
+                                        stock)</li>
+                                    <li><strong class="text-gray-700 dark:text-gray-300">price</strong> (Unit price)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div
+                            class="border border-[#dbe0e6] dark:border-gray-800 p-6 rounded-xl bg-gray-50 dark:bg-gray-900/50">
+                            <div class="flex flex-col gap-2">
+                                <h3 class="font-bold text-[#111418] dark:text-white flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary text-xl">trending_up</span>
+                                    Sales File
+                                </h3>
+                                <ul
+                                    class="text-sm text-[#617289] dark:text-gray-400 list-disc list-inside mt-2 space-y-1">
+                                    <li><strong class="text-gray-700 dark:text-gray-300">date</strong> (YYYY-MM-DD)</li>
+                                    <li><strong class="text-gray-700 dark:text-gray-300">sku</strong> (Product sold)
+                                    </li>
+                                    <li><strong class="text-gray-700 dark:text-gray-300">quantity</strong> (Units sold)
+                                    </li>
+                                    <li><strong class="text-gray-700 dark:text-gray-300">total</strong> (Total revenue)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-primary/5 py-24" id="dashboard">
+            <div class="max-w-[1280px] mx-auto px-6 text-center">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-black mb-4">Vibrant Sales Dashboard</h2>
+                    <p class="text-[#617289] dark:text-gray-400 max-w-2xl mx-auto">No more messy spreadsheets. View your
+                        sales health in a clean, vibrant interface designed by Manager AI for decision-makers.</p>
+                </div>
+                <div
+                    class="relative max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-white/50 bg-white dark:bg-gray-800">
+                    <div class="flex items-center gap-2 p-4 border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+                        <div class="flex gap-1.5">
+                            <div class="size-3 rounded-full bg-red-400"></div>
+                            <div class="size-3 rounded-full bg-yellow-400"></div>
+                            <div class="size-3 rounded-full bg-green-400"></div>
+                        </div>
+                        <div class="h-6 w-full max-w-[400px] bg-white dark:bg-gray-700 rounded-md mx-auto"></div>
+                    </div>
+                    <div class="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="md:col-span-2 space-y-6">
+                            <div class="h-64 rounded-xl bg-primary/5 border border-primary/10 flex items-end p-6 gap-2">
+                                <div class="w-full bg-primary/40 rounded-t-lg h-[40%]"></div>
+                                <div class="w-full bg-primary/40 rounded-t-lg h-[65%]"></div>
+                                <div class="w-full bg-primary/60 rounded-t-lg h-[85%]"></div>
+                                <div class="w-full bg-primary/40 rounded-t-lg h-[55%]"></div>
+                                <div class="w-full bg-primary/80 rounded-t-lg h-[95%]"></div>
+                                <div class="w-full bg-primary/50 rounded-t-lg h-[70%]"></div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="h-32 rounded-xl border border-gray-200 dark:border-gray-700 p-4 text-left">
+                                    <p class="text-xs font-bold text-gray-500 uppercase">Monthly Sales Growth</p>
+                                    <p class="text-2xl font-black text-green-500">+31.2%</p>
+                                </div>
+                                <div class="h-32 rounded-xl border border-gray-200 dark:border-gray-700 p-4 text-left">
+                                    <p class="text-xs font-bold text-gray-500 uppercase">Conversion Rate</p>
+                                    <p class="text-2xl font-black text-primary">12.4%</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:col-span-1 border-l dark:border-gray-700 pl-6 space-y-4">
+                            <h4 class="text-sm font-bold text-left">Manager AI Insights</h4>
+                            <div
+                                class="p-4 rounded-lg bg-green-50 dark:bg-green-900/20 text-xs text-left border border-green-100 dark:border-green-900/50">
+                                🚀 High demand detected for 'Premium Service'. Consider increasing marketing spend in
+                                Region B.
+                            </div>
+                            <div
+                                class="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-xs text-left border border-blue-100 dark:border-blue-900/50">
+                                📈 Peak sales window identified between 2 PM - 4 PM. Staff accordingly.
+                            </div>
+                            <div
+                                class="p-4 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 text-xs text-left border border-yellow-100 dark:border-yellow-900/50">
+                                💡 Seasonal trend: Sales historically increase by 20% in the coming month.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-24 max-w-[1280px] mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black tracking-tight mb-4">Manager AI Supports Every Business</h2>
+                <p class="text-[#617289] dark:text-gray-400">Tailored sales insights for entrepreneurs who want to scale
+                    smart.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div
+                    class="flex items-center gap-8 p-8 rounded-2xl bg-white dark:bg-gray-900 border border-[#dbe0e6] dark:border-gray-800 shadow-sm transition-transform hover:translate-y-[-4px]">
+                    <div
+                        class="shrink-0 size-24 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-4xl">storefront</span>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Retail &amp; Shop Owners</h3>
+                        <p class="text-[#617289] dark:text-gray-400 mb-4">Manager AI tracks inventory and peak sales
+                            hours effortlessly. Stop guessing what to stock and start knowing.</p>
+                        <ul class="flex flex-col gap-2">
+                            <li class="flex items-center gap-2 text-sm text-[#111418] dark:text-gray-300">
+                                <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                Sales volume optimization
+                            </li>
+                            <li class="flex items-center gap-2 text-sm text-[#111418] dark:text-gray-300">
+                                <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                Customer repeat patterns
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div
+                    class="flex items-center gap-8 p-8 rounded-2xl bg-white dark:bg-gray-900 border border-[#dbe0e6] dark:border-gray-800 shadow-sm transition-transform hover:translate-y-[-4px]">
+                    <div
+                        class="shrink-0 size-24 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-4xl">rocket_launch</span>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Scaling Startups</h3>
+                        <p class="text-[#617289] dark:text-gray-400 mb-4">Monitor sales velocity and growth metrics
+                            without a dedicated data team. Manager AI provides fast insights for fast decisions.</p>
+                        <ul class="flex flex-col gap-2">
+                            <li class="flex items-center gap-2 text-sm text-[#111418] dark:text-gray-300">
+                                <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                Sales pipeline tracking
+                            </li>
+                            <li class="flex items-center gap-2 text-sm text-[#111418] dark:text-gray-300">
+                                <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                ROI on sales activities
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-24 px-6 bg-primary">
+            <div class="max-w-[960px] mx-auto text-center text-white">
+                <h2 class="text-4xl md:text-5xl font-black mb-6">Ready to scale your sales?</h2>
+                <p class="text-lg text-white/80 mb-10 max-w-2xl mx-auto">Join thousands of business owners using Manager
+                    AI to automate their sales intelligence and reclaim their time.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="window.location.href='/login'"
+                        class="px-8 py-4 bg-white text-primary rounded-lg text-lg font-bold shadow-xl hover:bg-gray-100 transition-all">Start
+                        Free Trial</button>
+                    <button onclick="window.location.href='/login'"
+                        class="px-8 py-4 bg-primary border-2 border-white/20 text-white rounded-lg text-lg font-bold hover:bg-white/10 transition-all">Connect
+                        with Sales</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-white dark:bg-background-dark border-t border-[#f0f2f4] dark:border-gray-800 pt-16 pb-8">
+        <div class="max-w-[1280px] mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div class="col-span-1 md:col-span-1">
+                <div class="flex items-center gap-2 text-primary mb-6">
+                    <div class="size-6">
+                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </div>
+                    <span class="font-bold text-xl text-[#111418] dark:text-white">Manager AI</span>
+                </div>
+                <p class="text-sm text-[#617289] dark:text-gray-400">Democratizing sales intelligence for businesses
+                    worldwide. Smart decisions made easy by Manager AI.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-[#111418] dark:text-white mb-6">Product</h4>
+                <ul class="flex flex-col gap-4 text-sm text-[#617289] dark:text-gray-400">
+                    <li><a class="hover:text-primary" href="#">Sales Insights</a></li>
+                    <li><a class="hover:text-primary" href="#">Data Upload</a></li>
+                    <li><a class="hover:text-primary" href="#">Dashboards</a></li>
+                    <li><a class="hover:text-primary" href="#">Pricing</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-[#111418] dark:text-white mb-6">Resources</h4>
+                <ul class="flex flex-col gap-4 text-sm text-[#617289] dark:text-gray-400">
+                    <li><a class="hover:text-primary" href="#">Case Studies</a></li>
+                    <li><a class="hover:text-primary" href="#">Sales Blog</a></li>
+                    <li><a class="hover:text-primary" href="#">Documentation</a></li>
+                    <li><a class="hover:text-primary" href="#">Support</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-[#111418] dark:text-white mb-6">Subscribe</h4>
+                <p class="text-sm text-[#617289] dark:text-gray-400 mb-4">Stay updated with the latest Manager AI
+                    features.</p>
+                <div class="flex flex-col gap-2">
+                    <input
+                        class="rounded-lg border-[#dbe0e6] dark:border-gray-700 dark:bg-gray-800 text-sm focus:ring-primary"
+                        placeholder="Email address" type="email" />
+                    <button class="w-full bg-primary text-white py-2 rounded-lg font-bold text-sm">Join Now</button>
+                </div>
+            </div>
+        </div>
+        <div
+            class="max-w-[1280px] mx-auto px-6 border-t border-[#f0f2f4] dark:border-gray-800 pt-8 text-center md:text-left">
+            <p class="text-xs text-[#617289] dark:text-gray-500">© 2024 Manager AI. All rights reserved. Professional
+                sales tools for modern owners.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
