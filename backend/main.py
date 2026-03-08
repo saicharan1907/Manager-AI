@@ -125,7 +125,9 @@ async def login(
         key="access_token", 
         value=f"Bearer {access_token}", 
         httponly=True, 
-        max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60
+        max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+        path="/",
+        samesite="lax"
     )
     return response
 
@@ -155,7 +157,9 @@ async def google_login(
         key="access_token", 
         value=f"Bearer {access_token}", 
         httponly=True, 
-        max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60
+        max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+        path="/",
+        samesite="lax"
     )
     return response
 
