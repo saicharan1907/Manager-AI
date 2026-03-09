@@ -612,11 +612,19 @@ async def update_inventory_nl(
     qty = parsed_action.get('qty', 0)
     item_name = parsed_action.get('item_name')
     
-    # Exact or loose match in db
-    product = db.query(models.Product).filter(
-        models.Product.owner_id == uid,
-        models.Product.name.ilike(f"%{item_name}%")
-    ).first()
+    import difflib
+    
+    # Grab all user products to do a case-insensitive smart fuzzy match instead of rigid SQL ilike
+    all_products = db.query(models.Product).filter(models.Product.owner_id == uid).all()
+    product_map = {p.name.lower(): p for p in all_products}
+    
+    product = None
+    if product_map:
+        # Get closest string match (e.g. "beauty and personal care" vs "beauty & personal care")
+        matches = difflib.get_close_matches(item_name.lower(), product_map.keys(), n=1, cutoff=0.4)
+        if matches:
+            best_match_name = matches[0]
+            product = product_map[best_match_name]
     
     if not product:
         # Create it if it doesn't exist to be resilient
