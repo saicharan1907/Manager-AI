@@ -13,9 +13,13 @@ def get_genai_model():
     """Helper to get a configured model if available, else returns None"""
     if not has_ai_lib:
         return None
-    api_key = os.getenv("GEMINI_API_KEY")
+        
+    # Check multiple common names in case of Vercel dashboard misconfiguration
+    api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY") or os.getenv("API_KEY")
+    
     if not api_key:
         return None
+        
     genai.configure(api_key=api_key)
     return genai.GenerativeModel('gemini-2.5-flash')
 
