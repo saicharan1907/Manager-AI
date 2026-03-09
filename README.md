@@ -1,17 +1,17 @@
-# 📊 Manager AI - Intelligent MSME Analyst Platform
+# Manager AI - Intelligent MSME Analyst Platform
 
 Manager AI is an advanced, AI-powered inventory and sales management platform built exclusively for MSME (Micro, Small, and Medium Enterprises) business owners. It completely replaces complex spreadsheets by offering an intelligent, natural-language AI conversational agent (powered by Google Gemini), dynamic financial dashboards, PDF reporting, and predictive stock analytics.
 
-## 🌟 Key Features
+##  Key Features
 - **Intelligent Dashboards:** Real-time visualization of your total revenue, dead stock, active inventory efficiently, and top-performing sellers.
 - **AI Data Analyst:** Communicate naturally with "Manager AI" to instantly generate insights like "What were my top 3 items last month?" or "Do I need to restock anything?".
 - **PDF Diagnostic Generation:** Automatically compile your performance into a downloaded PDF invoice/report for immediate distribution.
 - **Bulk CSV Uploads:** Migrate thousands of products in one click using simple CSV/Excel file drops.
-- **Admin HQ Portal:** A dedicated overview dashboard (`/hq`) for tracking superuser logistics and registered system users.
+- **Admin HQ Portal:** A dedicated overview dashboard for tracking superuser logistics and registered system users.
 
 ---
 
-## 💻 Local Installation & Setup
+##  Local Installation & Setup
 
 Want to run Manager AI on your own computer? Follow these precise steps:
 
@@ -59,7 +59,7 @@ Open **http://127.0.0.1:8000** in your web browser!
 
 ---
 
-## 📖 User Workflow (How to use the App)
+##  User Workflow (How to use the App)
 
 When a brand-new user registers on your application, they should follow this exact pipeline to unlock the platform's power:
 
@@ -71,7 +71,7 @@ When a brand-new user registers on your application, they should follow this exa
 
 ---
 
-## ⚠️ System Limitations & Known Constraints
+##  System Limitations & Known Constraints
 
 Please be aware of the following technical limitations when actively using or testing the platform:
 
