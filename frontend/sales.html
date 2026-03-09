@@ -164,6 +164,21 @@
                             <input type="file" name="file" class="hidden" onchange="this.form.submit()"
                                 accept=".csv, .xlsx, .xls" required />
                         </label>
+                        <div
+                            class="mt-4 max-w-[480px] bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800/30 p-3.5 rounded-xl flex flex-col items-center gap-1.5 shadow-sm transform transition-all hover:scale-[1.02]">
+                            <p
+                                class="text-red-600 dark:text-red-400 text-[13px] font-extrabold flex items-center gap-1.5 uppercase tracking-wide">
+                                <span class="material-symbols-outlined text-[16px]">error</span>
+                                Serverless Upload Limit: 4.5 MB
+                            </p>
+                            <p
+                                class="text-xs text-red-500/90 dark:text-red-300/80 leading-relaxed font-medium text-center">
+                                If your CSV/Excel file exceeds this size, the server will reject it.
+                                <strong class="text-red-600 dark:text-red-400 opacity-100">Advice:</strong> Extract and
+                                split your massive spreadsheet into 2 or 3 smaller `.csv` files using Excel. Upload them
+                                one by one, and our system will seamlessly merge them!
+                            </p>
+                        </div>
                     </form>
                 </div>
             </div>
