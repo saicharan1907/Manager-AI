@@ -28,6 +28,22 @@
             }
         };
     </script>
+    <script>
+        // Auto-logout after 15 minutes of inactivity for privacy
+        (function () {
+            let timeout;
+            function resetTimer() {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    window.location.href = '/logout';
+                }, 15 * 60 * 1000);
+            }
+            ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'].forEach(evt =>
+                document.addEventListener(evt, resetTimer, true)
+            );
+            resetTimer();
+        })();
+    </script>
 </head>
 
 <body

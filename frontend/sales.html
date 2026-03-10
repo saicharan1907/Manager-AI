@@ -43,6 +43,22 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
     </style>
+    <script>
+            // Auto-logout after 15 minutes of inactivity for privacy
+            (function () {
+                let timeout;
+                function resetTimer() {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        window.location.href = '/logout';
+                    }, 15 * 60 * 1000);
+                }
+                ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'].forEach(evt =>
+                    document.addEventListener(evt, resetTimer, true)
+                );
+                resetTimer();
+            })();
+    </script>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display min-h-screen">
